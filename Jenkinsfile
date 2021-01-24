@@ -1,6 +1,6 @@
 
 
-pipline {
+pipeline {
     agent any 
 
     stages {
