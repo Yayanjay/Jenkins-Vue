@@ -47,16 +47,16 @@ pipeline {
                 script {
                     sshPublisher (
                         publishers: [
-                            sshPublisherDesc{
+                            sshPublisherDesc(
                                 configName: 'devops',
                                 verbose: false,
-                                transfer: [
+                                transfers: [
                                     sshTransfer(
                                         execCommand: "docker pull ${image_name}: docker kill vueapp :docker run -d --rm --name vueapp -p 8080:80 ${image_name}"
                                         execTimeout: 120000
                                     )
                                 ]
-                            }
+                            )
                         ]
                     )
                 }
