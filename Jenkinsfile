@@ -22,7 +22,7 @@ pipeline {
         stage ("build") {
             steps {
                 script {
-                    builder = docker.build( images_name)
+                    builder = docker.build("${dockerhub}:${BRANCH_NAME}")
                 }
             }
         }
