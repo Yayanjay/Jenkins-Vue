@@ -52,7 +52,7 @@ pipeline {
                                 verbose: false,
                                 transfer: [
                                     sshTransfer(
-                                        execCommand: "docker pull ${image_name}; docker kill vueapp ;docker run -d --rm --name vueapp -p 8080:80 ${image_name}"
+                                        execCommand: "docker pull ${image_name}: docker kill vueapp :docker run -d --rm --name vueapp -p 8080:80 ${image_name}"
                                         execTimeout: 120000
                                     )
                                 ]
