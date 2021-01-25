@@ -42,24 +42,24 @@ pipeline {
                 }
             }
         }
-        stage ("deploy") {
-            steps {
-                script {
-                    sshPublisher {
-                        publisher: [
-                            sshPublisherDesc{
-                                configName: "devops",
-                                verbose: false,
-                                transfer: [
-                                    sshTransfer(
-                                        execCommand: "docker pull ${image_name; }"
-                                    )
-                                ]
-                            }
-                        ]
-                    }
-                }
-            }
-        }
+        // stage ("deploy") {
+        //     steps {
+        //         script {
+        //             sshPublisher {
+        //                 publisher: [
+        //                     sshPublisherDesc{
+        //                         configName: "devops",
+        //                         verbose: false,
+        //                         transfer: [
+        //                             sshTransfer(
+        //                                 execCommand: "docker pull ${image_name; }"
+        //                             )
+        //                         ]
+        //                     }
+        //                 ]
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
