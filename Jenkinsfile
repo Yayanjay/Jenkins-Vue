@@ -1,5 +1,5 @@
 def dockerhub = "zayyanabdillah/jenkins"
-def images_name = "${dockerhub}:${BRANCH_NAME}"
+def image_name = "${dockerhub}:${BRANCH_NAME}"
 def builder
 
 pipeline {
@@ -19,7 +19,7 @@ pipeline {
                 }
             }
         }
-        stage ("build") {
+        stage ("build docker") {
             steps {
                 script {
                     builder = docker.build("${dockerhub}:${BRANCH_NAME}")
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     builder.inside {
-                        echo "inside image"
+                        sh "echo tested"
                     }
                 }
             }
@@ -39,6 +39,25 @@ pipeline {
             steps {
                 script {
                     builder.push()
+                }
+            }
+        }
+        stage ("deploy") {
+            steps {
+                script {
+                    sshPublisher {
+                        publisher: [
+                            sshPublisherDesc{
+                                configName: "devops",
+                                verbose: false,
+                                transfer: [
+                                    sshTransfer(
+                                        execCommand: "docker pull ${image_name; }"
+                                    )
+                                ]
+                            }
+                        ]
+                    }
                 }
             }
         }
