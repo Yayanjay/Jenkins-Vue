@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     sshPublisher (
-                        publisher: [
+                        publishers: [
                             sshPublisherDesc{
                                 configName: 'devops',
                                 verbose: false,
