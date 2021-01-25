@@ -1,15 +1,14 @@
-FROM node:latest
-
-ENV NODE_ENV=production
-
+#build stage
+FROM node:latest as build-stage
 WORKDIR /app
-
 COPY ["package.json", "package-lock.json*", "./"]
-
-COPY . .
-
 RUN yarn install
+COPY . .
+RUN yarn build
 
-EXPOSE 8080
+#production stage
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+EXPOSE 80
 
-CMD [ "node", "index.js" ]
+CMD [ "nginx","-g", "daemon off;" ]

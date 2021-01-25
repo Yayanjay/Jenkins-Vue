@@ -48,7 +48,7 @@ pipeline {
                     sshPublisher (
                         publisher: [
                             sshPublisherDesc{
-                                configName: "devops",
+                                configName: "deployment",
                                 verbose: false,
                                 transfer: [
                                     sshTransfer(
