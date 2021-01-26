@@ -7,7 +7,7 @@ pipeline {
 
     parameters {
         string(name: 'DOCKER_REPO', defaultValue: 'zayyanabdillah', description: 'docker repo address')
-        booleanParam(name: 'PULL IMAGES', defaultValue: 'false', description: 'lorem ipsum')
+        booleanParam(name: 'PUSH', defaultValue: 'false', description: 'lorem ipsum')
         choice(name: 'DEPLOY', choices: ["PRODUCTION", "DEPLOYMENT"], description: 'lorem ipsum sit amet')
     }
 
@@ -20,6 +20,11 @@ pipeline {
             }
         }
         stage ("build docker") {
+            when {
+                expression {
+                    params.DOCKER_REPO
+                }
+            }
             steps {
                 script {
                     builder = docker.build("${dockerhub}:${BRANCH_NAME}")
@@ -27,6 +32,11 @@ pipeline {
             }
         }
         stage ("test") {
+            when {
+                expression {
+                    params.PUSH
+                }
+            }
             steps {
                 script {
                     builder.inside {
